@@ -4,10 +4,8 @@ WORKDIR /app
 
 COPY . .
 
-RUN chmod +x mvnw && ./mvnw clean install -DskipTests
-
-RUN chmod +x mvnw && ./mvnw clean install -DskipTests -Dspring.profiles.active=prod
+RUN chmod +x mvnw
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "target/*.jar"]
+CMD ["./mvnw", "spring-boot:run"]
