@@ -4,7 +4,9 @@ WORKDIR /app
 
 COPY . .
 
-RUN chmod +x mvnw && ./mvnw clean package -DskipTests
+RUN chmod +x mvnw && ./mvnw clean install -DskipTests
+
+RUN chmod +x mvnw && ./mvnw clean install -DskipTests -Dspring.profiles.active=prod
 
 EXPOSE 8080
 
