@@ -4,8 +4,8 @@ WORKDIR /app
 
 COPY . .
 
-RUN chmod +x mvnw
+RUN chmod +x mvnw && ./mvnw clean package -DskipTests
 
 EXPOSE 8080
 
-CMD ["./mvnw", "spring-boot:run"]
+CMD ["java", "-jar", "target/grind90-0.0.1-SNAPSHOT.jar"]
