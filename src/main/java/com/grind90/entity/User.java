@@ -1,10 +1,9 @@
 package com.grind90.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "users")
@@ -14,15 +13,20 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
 
-    @JsonIgnore
+    @JsonProperty("password") // maps JSON -> field
+    @Column(nullable = false)
     private String password;
 
     private String phone;
+
+    @OneToMany(mappedBy = "user")
+    private List<Challenge> challenges;
 
     public User() {}
 
@@ -32,6 +36,8 @@ public class User {
         this.password = password;
         this.phone = phone;
     }
+
+    // GETTERS
 
     public Long getId() {
         return id;
@@ -53,6 +59,12 @@ public class User {
         return phone;
     }
 
+    public List<Challenge> getChallenges() {
+        return challenges;
+    }
+
+    // SETTERS
+
     public void setName(String name) {
         this.name = name;
     }
@@ -68,6 +80,8 @@ public class User {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-    @OneToMany(mappedBy = "user")
-    private List<Challenge> challenges;
+
+    public void setChallenges(List<Challenge> challenges) {
+        this.challenges = challenges;
+    }
 }
