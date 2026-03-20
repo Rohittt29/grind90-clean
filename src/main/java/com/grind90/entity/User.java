@@ -19,7 +19,7 @@ public class User {
     @Column(unique = true, nullable = false)
     private String email;
 
-    @JsonProperty("password") // maps JSON -> field
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // maps JSON -> field
     @Column(nullable = false)
     private String password;
 
